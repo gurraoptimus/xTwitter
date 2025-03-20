@@ -5,11 +5,11 @@ import requests
 from io import BytesIO
 
 # ============================
-# 🔗 Step 1: User Input for Instagram Profile URL
+# 🔗 Step 1: User Input for X Profile URL
 # ============================
-instagram_username = "instagram"
-#instagram_username = input("Enter your Instagram username: ")  # User can input their Instagram username
-instagram_url = f"https://www.instagram.com/{instagram_username}/"
+x_username = "x"
+#x_username = input("Enter your X username: ")  # User can input their X username
+x_url = f"https://www.x.com/{x_username}/"
 
 # ============================
 # 📸 Step 2: Create QR Code
@@ -20,7 +20,7 @@ qr = qrcode.QRCode(
     box_size=10,
     border=4,
 )
-qr.add_data(instagram_url)
+qr.add_data(x_url)
 qr.make(fit=True)
 
 # Convert QR code to an image
@@ -28,12 +28,12 @@ qr_image = qr.make_image(fill="black", back_color="white").convert("RGBA")
 qr_width, qr_height = qr_image.size
 
 # ============================
-# 🎨 Step 3: Apply Instagram Gradient to QR Code
+# 🎨 Step 3: Apply X Gradient to QR Code
 # ============================
 gradient = Image.new("RGBA", (qr_width, qr_height), (255, 255, 255, 255))
 draw = ImageDraw.Draw(gradient)
 
-# Instagram gradient colors
+# X gradient colors
 colors = [
     (255, 195, 0),   # Yellow
     (255, 87, 34),   # Orange
@@ -62,7 +62,7 @@ for y in range(qr_height):
 final_qr = Image.fromarray(qr_array)
 
 # ============================
-# 🎭 Step 4: Create a Circular Instagram Logo
+# 🎭 Step 4: Create a Circular X Logo
 # ============================
 logo_size = qr_width // 3  # Adjust logo size
 circle_mask = Image.new("L", (logo_size, logo_size), 0)
@@ -73,7 +73,7 @@ mask_draw.ellipse((0, 0, logo_size, logo_size), fill=255)  # Make it a perfect c
 logo = Image.new("RGBA", (logo_size, logo_size), (255, 255, 255, 0))
 draw = ImageDraw.Draw(logo)
 
-# Draw Instagram-style gradient background
+# Draw X-style gradient background
 for y in range(logo_size):
     r, g, b = [
         int(colors[0][i] * (1 - y / logo_size) + colors[-1][i] * (y / logo_size))
@@ -87,7 +87,7 @@ logo.putalpha(circle_mask)
 # ============================
 # 📸 Step 5: Insert User Profile Picture (Inside the Circular Logo)
 # ============================
-user_img_url = f"https://scontent-arn2-1.cdninstagram.com/v/t51.2885-19/281440578_1088265838702675_6233856337905829714_n.jpg?_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_cat=1&_nc_oc=Q6cZ2QHHE-ZLT_T8jgBBUfxV7nPsE8eFO1zZIwDH_UozmDI8bt41XH4x5wm4WfQMxUp2kaw&_nc_ohc=wd0IuiyrqDEQ7kNvgHkMxbw&_nc_gid=WY0Ord4Sk8rB6wgsQ6rFig&edm=APs17CUBAAAA&ccb=7-5&oh=00_AYGG3b_X87VB5mxoYhO41KMQxIn-mA00TDhdk1NjQHjRGQ&oe=67E1D998&_nc_sid=10d13b"  # User provides the URL
+user_img_url = f"https://scontent-arn2-1.cdnx.com/v/t51.2885-19/281440578_1088265838702675_6233856337905829714_n.jpg?_nc_ht=scontent-arn2-1.cdnx.com&_nc_cat=1&_nc_oc=Q6cZ2QHHE-ZLT_T8jgBBUfxV7nPsE8eFO1zZIwDH_UozmDI8bt41XH4x5wm4WfQMxUp2kaw&_nc_ohc=wd0IuiyrqDEQ7kNvgHkMxbw&_nc_gid=WY0Ord4Sk8rB6wgsQ6rFig&edm=APs17CUBAAAA&ccb=7-5&oh=00_AYGG3b_X87VB5mxoYhO41KMQxIn-mA00TDhdk1NjQHjRGQ&oe=67E1D998&_nc_sid=10d13b"  # User provides the URL
 
 try:
     # Fetch the user image from the URL
@@ -111,7 +111,7 @@ try:
 
 except Exception as e:
     print(f"⚠️ Error loading user profile image from URL: {e}")
-    print("Using only Instagram logo.")
+    print("Using only X logo.")
 
 # ============================
 # 🖼️ Step 6: Overlay Circular Logo on QR Code
@@ -122,5 +122,5 @@ final_qr.paste(logo, logo_position, mask=logo)
 # Save the final QR code
 final_qr.save("instaPy.png")
 
-print("✅ QR code with circular Instagram logo and user image saved as 'instaPy'.")
+print("✅ QR code with circular X logo and user image saved as 'instaPy'.")
 final_qr.show()  # Display the QR code
