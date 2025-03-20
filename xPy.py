@@ -7,8 +7,8 @@ from io import BytesIO
 # ============================
 # 🔗 Step 1: User Input for X Profile URL
 # ============================
-x_username = "x"
-#x_username = input("Enter your X username: ")  # User can input their X username
+#x_username = "x"
+x_username = input("Enter your X username: ")  # User can input their X username
 x_url = f"https://www.x.com/{x_username}/"
 
 # ============================
